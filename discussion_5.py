@@ -64,10 +64,16 @@ class Warehouse:
     # Returns the item in the warehouse with the highest price
 
     def get_max_price(self):
+        if self.items is None:
+            return None
+        maxItemPrice = self.items[0].price
         maxPrice = self.items[0]
+
         for item in self.items:
-            if item.price > maxPrice:
-                maxPrice = item.price
+            if item.price > maxItemPrice:
+                maxItemPrice = item.price
+                maxPrice = item
+
         return maxPrice
 
 
@@ -116,8 +122,8 @@ class TestAllMethods(unittest.TestCase):
         costco.add_item(self.item3)
         costco.add_item(self.item4)
         costco.add_item(self.item5)
-        max_stock_name = costco.get_max_price()
-        self.assertEqual(max_stock_name.name, self.item3.name)
+        max_price_name = costco.get_max_price()
+        self.assertEqual(max_price_name.name, self.item1.name)
 
 
 def main():
